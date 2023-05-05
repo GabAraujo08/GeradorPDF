@@ -12,16 +12,37 @@
 <body>
 
     <style>
+       
+        a{
+            text-decoration: none;
+            color: unset;
+            cursor: pointer!important;
+        }
+        .copyright {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
 
-        label{
+        h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        label {
             font-size: 16px;
             font-weight: 600;
         }
+
         .main {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            height: 100vh;
+            align-items: center;
+            justify-content: center;
+           
         }
 
         form {
@@ -33,6 +54,18 @@
     </style>
 
     <div class="container-fluid">
+        <div class="copyright">
+            <h1>By: Gabriel Araujo - 
+                <a target="_blank" href="https://www.instagram.com/gab_araujookk/">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a target="_blank" href="https://github.com/GabAraujo08">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            </h1>
+        </div>
+
+
         <div class="main">
             <h1>Gerador de PDF</h1>
             <form>
@@ -60,6 +93,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"
         integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous">
     </script>
+    <script src="https://kit.fontawesome.com/b8f56ddd91.js" crossorigin="anonymous"></script>
     <script>
         function gerarPDF() {
             // Obtém os valores dos campos do formulário
@@ -79,9 +113,9 @@
             // Adiciona o conteúdo ao documento
             doc.setFontSize(14);
             doc.setFontType("normal");
-            doc.text(conteudo, 20, 50, {
-                align: "justify"
-            });
+            var lines = doc.splitTextToSize(conteudo, doc.internal.pageSize.getWidth() - 40);
+            doc.text(lines, 20, 50);
+
 
             // Baixa o PDF com o nome "documento.pdf"
             doc.save(nomeDocumento + ".pdf");
